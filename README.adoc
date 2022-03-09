@@ -1,0 +1,43 @@
+= Kustomization for Red Hat OpenShift distributed tracing
+
+* You can install Red Hat OpenShift distributed tracing as part of Red Hat OpenShift Service Mesh. Distributed tracing is included by default in the Service Mesh installation. To install Red Hat OpenShift distributed tracing as part of a service mesh, follow the https://docs.openshift.com/container-platform/4.9/service_mesh/v2x/preparing-ossm-installation.html#preparing-ossm-installation[Red Hat Service Mesh Installation instructions]. You must install Red Hat OpenShift distributed tracing in the same namespace as your service mesh, that is, the ServiceMeshControlPlane and the Red Hat OpenShift distributed tracing resources must be in the same namespace.
+
+* If you do not want to install a service mesh, you can use the Red Hat OpenShift distributed tracing Operators to install distributed tracing by itself. To install Red Hat OpenShift distributed tracing without a service mesh, use the following instructions.
+
+[NOTE]
+====
+We'll install Red Hat OpenShift distributed tracing without a service mesh.
+====
+
+
+== Prerequisites
+
+Before you can install Red Hat OpenShift distributed tracing, ensure that you meet the prerequisites:
+* OCP cluster running
+* oc installed
+* cluster-admin role
+* https://kubectl.docs.kubernetes.io/installation/kustomize/[Kustomize]
+
+== Installing the OpenShift Elasticsearch Operator
+
+```sh
+$ oc apply -k elasticsearch/base
+```
+
+== Installing the Red Hat OpenShift distributed tracing platform Operator
+
+```sh
+$ oc apply -k distributed-tracing-platform/base
+```
+
+== Installing the Red Hat OpenShift distributed tracing data collection Operator
+
+```sh
+$ oc apply -k distributed-tracing-collector/base
+```
+
+== Deploy Jaeger stack
+
+```sh
+$ oc apply -k distributed-tracing-collector/config
+```
