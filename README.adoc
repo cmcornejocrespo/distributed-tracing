@@ -9,10 +9,10 @@
 We'll install Red Hat OpenShift distributed tracing without a service mesh.
 ====
 
-
 == Prerequisites
 
 Before you can install Red Hat OpenShift distributed tracing, ensure that you meet the prerequisites:
+
 * OCP cluster running
 * oc installed
 * cluster-admin role
