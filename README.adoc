@@ -39,5 +39,5 @@ $ oc apply -k distributed-tracing-collector/base
 == Deploy Jaeger stack
 
 ```sh
-$ oc apply -k distributed-tracing-collector/config
+$ oc apply -k distributed-tracing-platform/config
 ```
