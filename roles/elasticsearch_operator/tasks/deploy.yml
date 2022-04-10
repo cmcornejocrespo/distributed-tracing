@@ -1,0 +1,10 @@
+- name: Deploy Elasticsearch operator
+  command: oc apply --kustomize {{ elasticsearch_kustomizations.operator }}
+
+- name: Wait for Elasticsearch operator to deploy
+  import_role:
+    name: common
+    tasks_from: wait_for_operator.yml
+  vars:
+    subscription_name: '{{ elasticsearch_subscription_name }}'
+    subscription_namespace: '{{ elasticsearch_subscription_namespace }}'

@@ -1,0 +1,28 @@
+- name: Deploy OpenShift distributed tracing platform Operator
+  command: oc apply --kustomize {{ distributed_platform_kustomizations.operator }}
+
+- name: Wait for OpenShift distributed tracing platform Operator to deploy
+  import_role:
+    name: common
+    tasks_from: wait_for_operator.yml
+  vars:
+    subscription_name: '{{ distributed_platform_subscription_name }}'
+    subscription_namespace: '{{ distributed_platform_subscription_namespace }}'
+
+- name: Deploy Jaeger stack
+  command: oc apply --kustomize {{ distributed_platform_kustomizations.config }}
+
+- name: Waiting since {{ lookup("pipe", "date +%r") }} for Jaeger instance to deploy
+  k8s_info:
+    api_version: jaegertracing.io/v1
+    kind: Jaeger
+    name: '{{ jaeger_instance_name }}'
+    namespace: '{{ jaeger_instance_namespace }}'
+  register: jaeger_instance
+  until:
+    - jaeger_instance.resources | length > 0
+    - jaeger_instance.resources.0.status is defined
+    - jaeger_instance.resources.0.status.phase is defined
+    - jaeger_instance.resources.0.status.phase == 'Running'
+  retries: 60
+  delay: 10

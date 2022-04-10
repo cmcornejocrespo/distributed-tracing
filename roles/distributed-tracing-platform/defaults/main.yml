@@ -1,0 +1,9 @@
+distributed_platform_kustomizations:
+  operator: https://github.com/cmcornejocrespo/distributed-tracing/kustomization/distributed-tracing-platform/base
+  config: https://github.com/cmcornejocrespo/distributed-tracing/kustomization/distributed-tracing-platform/config
+
+distributed_platform_subscription_name: jaeger-product
+distributed_platform_subscription_namespace: openshift-operators
+
+jaeger_instance_name: simple-prod
+jaeger_instance_namespace: tracing-system

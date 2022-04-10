@@ -1,0 +1,20 @@
+- name: Delete Jaeger instance
+  command: oc delete --kustomize {{ distributed_platform_kustomizations.config }}
+
+- name: Obtain CSV name
+  k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    name: '{{ distributed_platform_subscription_name }}'
+    namespace: '{{ distributed_platform_subscription_namespace }}'
+  register: operator_subscription
+
+- name: Delete OpenShift distributed tracing platform Operator
+  command: oc delete --kustomize {{ elasticsearch_kustomizations.operator }}
+
+- name: Clean up CSVs
+  include_role:
+    name: common
+    tasks_from: delete_csvs.yml
+  vars:
+    delete_csvs_name: '{{ operator_subscription.resources.0.status.currentCSV }}'

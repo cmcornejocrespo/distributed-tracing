@@ -1,0 +1,5 @@
+elasticsearch_kustomizations:
+  operator: https://github.com/cmcornejocrespo/distributed-tracing/kustomization/elasticsearch/base
+
+elasticsearch_subscription_name: elasticsearch-operator
+elasticsearch_subscription_namespace: openshift-operators-redhat

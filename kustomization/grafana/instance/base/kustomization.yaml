@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: tracing-system
+
+configMapGenerator:
+- files:
+  - conf/custom-metrics.json
+  name: custom-metrics-dashboard
+
+vars:
+- fieldref:
+    fieldPath: metadata.namespace
+  name: NAMESPACE
+  objref:
+    apiVersion: integreatly.org/v1alpha1
+    kind: Grafana
+    name: grafana
+
+resources:
+- grafana-grafana.yaml
+- grafana-k8s-proxy-secret.yaml
+- grafana-proxy-clusterrolebinding.yaml
+- grafana-proxy-clusterrole.yaml
+- ocp-injected-certs-cm.yaml
+# will be added dinamically by ansible
+# - prometheus-grafanadatasource.yaml
+- prometheus-grafanadashboard.yaml
+
+configurations:
+- kustomizeconfig.yaml

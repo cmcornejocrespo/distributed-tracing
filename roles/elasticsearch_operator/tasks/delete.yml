@@ -1,0 +1,17 @@
+- name: Obtain CSV name
+  k8s_info:
+    api_version: operators.coreos.com/v1alpha1
+    kind: Subscription
+    name: '{{ elasticsearch_subscription_name }}'
+    namespace: '{{ elasticsearch_subscription_namespace }}'
+  register: operator_subscription
+
+- name: Delete Elasticsearch operator
+  command: oc delete --kustomize {{ elasticsearch_kustomizations.operator }}
+
+- name: Clean up CSVs
+  include_role:
+    name: common
+    tasks_from: delete_csvs.yml
+  vars:
+    delete_csvs_name: '{{ operator_subscription.resources.0.status.currentCSV }}'

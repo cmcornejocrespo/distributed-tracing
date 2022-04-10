@@ -1,0 +1,8 @@
+grafana_kustomizations:
+  instance: https://github.com/cmcornejocrespo/distributed-tracing/kustomization/grafana/instance/base
+  operator: https://github.com/cmcornejocrespo/distributed-tracing/kustomization/grafana/operator/base
+
+grafana_subscription_namespace: tracing-system
+grafana_subscription_name: grafana
+grafana_instance_namespace: tracing-system
+grafana_instance_name: grafana
