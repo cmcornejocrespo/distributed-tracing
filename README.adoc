@@ -7,6 +7,7 @@
 [NOTE]
 ====
 We'll install Red Hat OpenShift distributed tracing without a service mesh.
+We'll not install the collector.
 ====
 
 == Prerequisites
@@ -15,29 +16,44 @@ Before you can install Red Hat OpenShift distributed tracing, ensure that you me
 
 * OCP cluster running
 * oc installed
-* cluster-admin role
-* https://kubectl.docs.kubernetes.io/installation/kustomize/[Kustomize]
+* Logged in a cluster-admin like role
+* https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[Ansible]
+* https://kubectl.docs.kubernetes.io/installation/kustomize/[Kustomize] (only if deploy manually)
 
-== Installing the OpenShift Elasticsearch Operator
+== Deploying the stack
 
 ```sh
-$ oc apply -k elasticsearch/base
+$ ansible-playbook -i inventory/localhost.yml deploy_stack.yaml
 ```
 
-== Installing the Red Hat OpenShift distributed tracing platform Operator
+== Delete the stack
 
 ```sh
-$ oc apply -k distributed-tracing-platform/base
+$ ansible-playbook -i inventory/localhost.yml delete_stack.yaml
 ```
 
-== Installing the Red Hat OpenShift distributed tracing data collection Operator
+== Deploy components manually
+
+=== Installing the OpenShift Elasticsearch Operator
 
 ```sh
-$ oc apply -k distributed-tracing-collector/base
+$ oc apply -k kustomization/elasticsearch/base
 ```
 
-== Deploy Jaeger stack
+=== Installing the Red Hat OpenShift distributed tracing platform Operator
 
 ```sh
-$ oc apply -k distributed-tracing-platform/config
+$ oc apply -k kustomization/distributed-tracing-platform/base
+```
+
+=== Installing the Red Hat OpenShift distributed tracing data collection Operator
+
+```sh
+$ oc apply -k kustomization/distributed-tracing-collector/base
+```
+
+=== Deploy Jaeger stack
+
+```sh
+$ oc apply -k kustomization/distributed-tracing-platform/config
 ```
