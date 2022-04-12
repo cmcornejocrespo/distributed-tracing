@@ -1,4 +1,4 @@
-- name: Waiting since {{ lookup("pipe", "date +%r") }} for CSV name to appear
+- name: Waiting since {{ lookup("pipe", "date +%r") }} for operator subscription to appear
   k8s_info:
     api_version: operators.coreos.com/v1alpha1
     kind: Subscription
@@ -8,8 +8,13 @@
   until:
     - operator_subscription.resources.0.status is defined
     - operator_subscription.resources.0.status.currentCSV is defined
-  retries: 60
+  retries: 20
   delay: 10
+
+- name: Print the CSV name
+  ansible.builtin.debug:
+    msg: Operator subscription {{ operator_subscription }}
+  when: debug_enabled == 'true' and operator_subscription is defined
 
 - name: Waiting since {{ lookup("pipe", "date +%r") }} for the operator to deploy
   k8s_info:
@@ -22,5 +27,10 @@
     - operator_csv.resources.0.status is defined
     - operator_csv.resources.0.status.phase is defined
     - operator_csv.resources.0.status.phase == 'Succeeded'
-  retries: 60
+  retries: 20
   delay: 10
+
+- name: Print the CSV name
+  ansible.builtin.debug:
+    msg: Operator csv {{ operator_csv }}
+  when: debug_enabled == 'true' and operator_csv is defined
