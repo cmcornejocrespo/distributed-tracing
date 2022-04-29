@@ -1,12 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: tracing-system
+namespace: grafana
 
 configMapGenerator:
 - files:
-  - conf/custom-metrics.json
-  name: custom-metrics-dashboard
+  - conf/simple-dashboard.json
+  name: simple-metrics-dashboard
 
 vars:
 - fieldref:
@@ -25,7 +25,7 @@ resources:
 - ocp-injected-certs-cm.yaml
 # will be added dinamically by ansible
 # - prometheus-grafanadatasource.yaml
-- prometheus-grafanadashboard.yaml
+- simple-dashboard-grafanadashboard.yaml
 
 configurations:
 - kustomizeconfig.yaml

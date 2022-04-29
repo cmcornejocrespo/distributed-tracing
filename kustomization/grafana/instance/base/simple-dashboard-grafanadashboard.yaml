@@ -1,11 +1,11 @@
 apiVersion: integreatly.org/v1alpha1
 kind: GrafanaDashboard
 metadata:
-  name: prometheus
+  name: simple-dashboard
   labels:
     app: grafana
 spec:
   customFolderName: "Custom Metrics"
   configMapRef:
-    name: custom-metrics-dashboard
-    key: custom-metrics.json
+    name: simple-metrics-dashboard
+    key: simple-dashboard.json
