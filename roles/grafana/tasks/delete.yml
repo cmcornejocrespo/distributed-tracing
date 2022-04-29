@@ -12,25 +12,7 @@
     - metrics/openshift-monitoring-grafanadatasource.yaml
 
 - name: Delete Grafana instance
-  import_role:
-    name: common
-    tasks_from: kustomize.yml
-  vars:
-    kustomize_name: grafana
-    kustomize_files:
-      - instance/kustomization.yaml
-      # - instance/prometheus-grafanadashboard.yaml
-      - instance/prometheus-grafanadatasource.yaml
-    kustomize_op: delete
-
-# - name: Delete Grafana operator
-#   k8s:
-#     definition: "{{ lookup('template', item) }}"
-#     state: absent
-#   loop:
-#     - operator/grafana-sub.yaml
-#     - operator/grafana-og.yaml
-#     - operator/grafana-ns.yaml
+  command: oc delete --kustomize {{ grafana_kustomizations.instance }}
 
 - name: Obtain CSV name
   k8s_info:

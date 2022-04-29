@@ -1,11 +1,12 @@
 - name: Deploy OpenShift distributed tracing platform Operator
   command: oc apply --kustomize {{ distributed_platform_kustomizations.operator }}
 
-- name: Wait for OpenShift distributed tracing platform Operator to deploy
+- name: Wait for OpenShift Distributed Tracing Platform Operator to deploy
   import_role:
     name: common
     tasks_from: wait_for_operator.yml
   vars:
+    operator_name: 'Distributed Tracing Platform'
     subscription_name: '{{ distributed_platform_subscription_name }}'
     subscription_namespace: '{{ distributed_platform_subscription_namespace }}'
 

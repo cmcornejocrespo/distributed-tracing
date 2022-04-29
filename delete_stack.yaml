@@ -2,11 +2,14 @@
   gather_facts: False
   tasks:
     - import_role:
-        name: distributed-tracing-platform
-        tasks_from: delete.yml
-    - import_role:
         name: elasticsearch_operator
         tasks_from: delete.yml
+      tags: elasticsearch
+    - import_role:
+        name: distributed-tracing-platform
+        tasks_from: delete.yml
+      tags: tracing
     - import_role:
         name: grafana
         tasks_from: delete.yml
+      tags: grafana

@@ -4,12 +4,16 @@
     - import_role:
         name: common
         tasks_from: enable_user_monitoring.yml
+      tags: grafana
     - import_role:
         name: elasticsearch_operator
         tasks_from: deploy.yml
+      tags: elasticsearch
     - import_role:
         name: distributed-tracing-platform
         tasks_from: deploy.yml
+      tags: tracing
     - import_role:
         name: grafana
         tasks_from: deploy.yml
+      tags: grafana
