@@ -2,7 +2,7 @@ apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
   name: grafana
-  namespace: tracing-system
+  namespace: grafana
 spec:
   targetNamespaces:
-  - tracing-system
+  - grafana
