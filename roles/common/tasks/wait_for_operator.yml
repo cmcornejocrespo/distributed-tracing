@@ -16,7 +16,7 @@
     msg: Operator subscription {{ operator_subscription }}
   when: debug_enabled == 'true' and operator_subscription is defined
 
-- name: Waiting since {{ lookup("pipe", "date +%r") }} for the operator to deploy
+- name: Waiting since {{ lookup("pipe", "date +%r") }} for the {{ operator_name }} operator to deploy
   k8s_info:
     api_version: operators.coreos.com/v1alpha1
     kind: ClusterServiceVersion
@@ -27,7 +27,7 @@
     - operator_csv.resources.0.status is defined
     - operator_csv.resources.0.status.phase is defined
     - operator_csv.resources.0.status.phase == 'Succeeded'
-  retries: 20
+  retries: 30
   delay: 10
 
 - name: Print the CSV name

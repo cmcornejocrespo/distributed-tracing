@@ -10,7 +10,7 @@
   register: operator_subscription
 
 - name: Delete OpenShift distributed tracing platform Operator
-  command: oc delete --kustomize {{ elasticsearch_kustomizations.operator }}
+  command: oc delete --kustomize {{ distributed_platform_kustomizations.operator }}
 
 - name: Clean up CSVs
   include_role:
