@@ -1,12 +1,22 @@
 {
-  "id": null,
-  "title": "Simple Dashboard",
-  "tags": [],
-  "style": "dark",
-  "timezone": "browser",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
   "editable": true,
-  "hideControls": false,
+  "gnetId": null,
   "graphTooltip": 1,
+  "id": 2,
+  "links": [],
   "panels": [
     {
       "aliasColors": {},
@@ -21,8 +31,8 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 9,
+        "w": 22,
         "x": 0,
         "y": 0
       },
@@ -55,15 +65,17 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": ":node_memory_MemAvailable_bytes:sum",
+          "expr": "code_resource:apiserver_request_total:rate5m",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
       "thresholds": [],
+      "timeFrom": null,
       "timeRegions": [],
-      "title": "Panel Title",
+      "timeShift": null,
+      "title": "Total API Server requests",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -101,22 +113,23 @@
       }
     }
   ],
-  "time": {
-    "from": "now-6h",
-    "to": "now"
-  },
-  "timepicker": {
-    "time_options": [],
-    "refresh_intervals": []
-  },
+  "refresh": "5s",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": [],
   "templating": {
     "list": []
   },
-  "annotations": {
-    "list": []
+  "time": {
+    "from": "now-30m",
+    "to": "now"
   },
-  "refresh": "5s",
-  "schemaVersion": 17,
-  "version": 0,
-  "links": []
+  "timepicker": {
+    "refresh_intervals": [],
+    "time_options": []
+  },
+  "timezone": "browser",
+  "title": "Simple Dashboard",
+  "uid": "eaa406690f1fcb9aa0ced2e8f1fc17a8b93594d1",
+  "version": 2
 }
